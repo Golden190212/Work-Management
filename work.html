@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work</title>
+    <link rel="stylesheet" href="./Css/work.css">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+      <a href="./index.html">Home</a>
+      <a href="./work.html">Work</a>
+      <a href="./chart.html">Chart</a>
+    </div>
+    </header>
+    <h1>Work Management</h1>
+    <div class="center-buttons">
+    <button class="btn" id="add-work">Add work</button>
+    <button class="btn delete" id="delete-work">Delete work</button>
+  </div>
+      <!-- Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="modal-title">Title</h2>
+      <p id="modal-text">Nội dung</p>
+      <input type="text" placeholder="Nhập công việc..." class="modal-input">
+      <div class="modal-footer">
+        <button class="btn action">OK</button>
+      </div>
+    </div>
+  </div>
+  <script src="./js/index.js"></script>
+</body>
+</html>
