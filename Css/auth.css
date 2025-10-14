@@ -26,11 +26,12 @@ header h1 {
 }
 
 /* Container */
-.container {
-  flex: 1; /* chiếm hết phần giữa */
+.Auth-container {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 form {
@@ -76,7 +77,7 @@ form p {
 form p a {
   color: #5500ff;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 form p a:hover {
@@ -89,4 +90,5 @@ footer {
   padding: 15px;
   font-size: 14px;
   opacity: 0.8;
+  margin-top: auto; /* giúp footer luôn nằm dưới cùng */
 }
