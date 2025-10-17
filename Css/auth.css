@@ -1,94 +1,180 @@
-/* Reset */
+/* 🌙 Reset cơ bản */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
+/* 🌌 Nền toàn trang */
 body {
-  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
   color: #fff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
 }
 
-/* Header */
+/* 🧭 Header */
 header {
+  width: 100%;
   text-align: center;
   padding: 40px 0 20px;
 }
 
 header h1 {
-  font-size: 32px;
-  font-weight: bold;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #00eaff;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(0, 234, 255, 0.5);
 }
 
-/* Container */
+/* 📦 Container chính */
 .Auth-container {
-  flex: 1;
+  padding-top: 60px;
+  width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 100%;
 }
 
+/* 🧊 Form chính */
 form {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 40px;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-  width: 350px;
+  background: rgba(15, 15, 15, 0.85);
+  padding: 40px 35px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 234, 255, 0.1),
+              inset 0 0 8px rgba(0, 234, 255, 0.2);
+  width: 100%;
+  max-width: 360px;
   text-align: center;
   backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 234, 255, 0.2);
 }
 
+/* ✏️ Ô nhập */
 form input {
   width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: none;
-  border-radius: 8px;
+  padding: 14px;
+  margin: 12px 0;
+  border: 1px solid rgba(0, 234, 255, 0.3);
+  border-radius: 10px;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  outline: none;
+  transition: all 0.3s ease;
 }
 
+form input:focus {
+  border-color: #00eaff;
+  box-shadow: 0 0 8px #00eaff;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* 🔘 Nút đăng ký / đăng nhập */
 form button {
   width: 100%;
-  padding: 12px;
-  margin-top: 10px;
+  padding: 14px;
+  margin-top: 15px;
   border: none;
-  border-radius: 8px;
-  background: black;
-  color: white;
-  font-weight: bold;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #00eaff, #007a99);
+  color: #000;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.5px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 234, 255, 0.4);
 }
 
 form button:hover {
-  background: #333;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #00eaff;
 }
 
+/* 📄 Đoạn dưới form */
 form p {
-  margin-top: 15px;
-  font-size: 14px;
+  margin-top: 20px;
+  font-size: 15px;
+  color: #ccc;
 }
 
 form p a {
-  color: #5500ff;
+  color: #00eaff;
   text-decoration: none;
-  font-size: 18px;
+  font-weight: bold;
+  transition: 0.3s;
 }
 
 form p a:hover {
-  text-decoration: underline;
+  color: #fff;
+  text-shadow: 0 0 8px #00eaff;
 }
 
-/* Footer */
+/* ⚙️ Footer */
 footer {
   text-align: center;
   padding: 15px;
   font-size: 14px;
   opacity: 0.8;
-  margin-top: auto; /* giúp footer luôn nằm dưới cùng */
+  margin-top: auto;
+  color: #bbb;
+}
+
+/* 📱 Responsive cho điện thoại */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.8rem;
+  }
+
+  form {
+    padding: 30px 25px;
+    max-width: 320px;
+  }
+
+  form input,
+  form button {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  form p {
+    font-size: 14px;
+  }
+
+  footer {
+    font-size: 13px;
+    padding: 10px;
+  }
+}
+
+/* 📱 Dưới 480px */
+@media (max-width: 480px) {
+  header {
+    padding: 25px 0 10px;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  form {
+    padding: 25px 20px;
+    border-radius: 15px;
+  }
+
+  form input,
+  form button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  footer {
+    font-size: 12px;
+  }
 }
