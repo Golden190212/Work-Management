@@ -1,36 +1,94 @@
-// Lấy phần tử
-const modal = document.getElementById("myModal");
-const modalTitle = document.getElementById("modal-title");
-const modalText = document.getElementById("modal-text");
-const closeBtn = document.querySelector(".close");
-const actionBtn = document.querySelector(".modal-footer .btn");
+document.addEventListener("DOMContentLoaded", () => {
+  const addTaskBtn = document.getElementById("addTaskBtn");
+  const deleteAllBtn = document.getElementById("deleteAllBtn");
+  const addTaskModal = document.getElementById("addTaskModal");
+  const deleteModal = document.getElementById("deleteModal");
+  const closeBtns = document.querySelectorAll(".close");
+  const taskForm = document.getElementById("taskForm");
+  const taskNameInput = document.getElementById("taskName");
+  const taskDeadlineInput = document.getElementById("taskDeadline");
+  const taskList = document.getElementById("taskList");
+  const confirmDelete = document.getElementById("confirmDelete");
+  const cancelDelete = document.getElementById("cancelDelete");
 
-// Nút Add work
-document.getElementById("add-work").onclick = function() {
-  modalTitle.textContent = "Add Work";
-  modalText.textContent = "Điền thông tin công việc bạn muốn thêm.";
-  actionBtn.textContent = "Add";
-  actionBtn.className = "btn add";
-  modal.style.display = "flex";
-};
+  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-// Nút Delete work
-document.getElementById("delete-work").onclick = function() {
-  modalTitle.textContent = "Delete Work";
-  modalText.textContent = "Chọn công việc bạn muốn xóa.";
-  actionBtn.textContent = "Delete";
-  actionBtn.className = "btn delete";
-  modal.style.display = "flex";
-};
+  function renderTasks() {
+    taskList.innerHTML = "";
+    if (tasks.length === 0) {
+      taskList.innerHTML = "<p>Chưa có công việc nào.</p>";
+      return;
+    }
 
-// Nút X đóng modal
-closeBtn.onclick = function() {
-  modal.style.display = "none";
-};
+    tasks.forEach((task, index) => {
+      const item = document.createElement("div");
+      item.classList.add("task-item");
+      item.innerHTML = `
+        <div>
+          <strong>${task.name}</strong><br>
+          <small>Hoàn thành trước: ${task.deadline}</small>
+        </div>
+        <button class="btn edit-btn" data-index="${index}">Chỉnh sửa</button>
+      `;
+      taskList.appendChild(item);
+    });
 
-// Click ra ngoài modal cũng đóng
-window.onclick = function(event) {
-  if (event.target === modal) {
+    document.querySelectorAll(".edit-btn").forEach(btn => {
+      btn.onclick = () => editTask(btn.dataset.index);
+    });
+  }
+
+  function openModal(modal) {
+    modal.style.display = "flex";
+  }
+
+  function closeModal(modal) {
     modal.style.display = "none";
   }
-};
+
+  addTaskBtn.onclick = () => openModal(addTaskModal);
+  deleteAllBtn.onclick = () => openModal(deleteModal);
+
+  closeBtns.forEach(btn => {
+    btn.onclick = () => closeModal(btn.closest(".modal"));
+  });
+
+  window.onclick = e => {
+    if (e.target.classList.contains("modal")) closeModal(e.target);
+  };
+
+  taskForm.onsubmit = e => {
+    e.preventDefault();
+    const name = taskNameInput.value.trim();
+    const deadline = taskDeadlineInput.value;
+    if (!name || !deadline) return alert("Vui lòng nhập đầy đủ thông tin!");
+
+    tasks.push({ name, deadline });
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    renderTasks();
+    taskForm.reset();
+    closeModal(addTaskModal);
+  };
+
+  confirmDelete.onclick = () => {
+    tasks = [];
+    localStorage.removeItem("tasks");
+    renderTasks();
+    closeModal(deleteModal);
+  };
+
+  cancelDelete.onclick = () => closeModal(deleteModal);
+
+  function editTask(index) {
+    const task = tasks[index];
+    const newName = prompt("Tên mới:", task.name);
+    const newDeadline = prompt("Thời hạn mới:", task.deadline);
+    if (newName && newDeadline) {
+      tasks[index] = { name: newName, deadline: newDeadline };
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      renderTasks();
+    }
+  }
+
+  renderTasks();
+});
