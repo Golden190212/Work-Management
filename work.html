@@ -1,36 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work</title>
-    <link rel="stylesheet" href="./Css/work.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản lý công việc</title>
+  <link rel="stylesheet" href="./Css/work.css" />
 </head>
 <body>
-    <header>
-        <div class="navbar">
-      <a href="./index.html">Home</a>
-      <a href="./work.html">Work</a>
-      <a href="./chart.html">Chart</a>
+  <header>
+    <div class="navbar">
+      <div class="logo">Work Management</div>
+      <div class="nav-buttons">
+        <button id="home" class="tab">Home</button>
+        <button id="work" class="tab active">Work</button>
+        <button id="chart" class="tab">Chart</button>
+      </div>
     </div>
-    </header>
-    <h1>Work Management</h1>
-    <div class="center-buttons">
-    <button class="btn" id="add-work">Add work</button>
-    <button class="btn delete" id="delete-work">Delete work</button>
-  </div>
-      <!-- Modal -->
-  <div class="modal" id="myModal">
-    <div class="modal-content">
+  </header>
+
+  <main>
+    <h1>Quản lý công việc</h1>
+
+    <div class="task-actions">
+      <button id="addTaskBtn" class="btn">➕ Thêm công việc</button>
+      <button id="deleteAllBtn" class="btn delete">🗑️ Xóa tất cả</button>
+    </div>
+
+    <div class="container">
+      <h3>Danh sách công việc</h3>
+      <div id="taskList" class="task-list">
+        <p>Chưa có công việc nào.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal thêm công việc -->
+  <div id="addTaskModal" class="modal">
+    <div class="modal-content fade">
       <span class="close">&times;</span>
-      <h2 id="modal-title">Title</h2>
-      <p id="modal-text">Nội dung</p>
-      <input type="text" placeholder="Nhập công việc..." class="modal-input">
+      <h2>Thêm công việc</h2>
+      <form id="taskForm">
+        <label for="taskName">Tên công việc:</label>
+        <input type="text" id="taskName" class="modal-input" required />
+
+        <label for="taskDeadline">Thời hạn hoàn thành:</label>
+        <input type="datetime-local" id="taskDeadline" class="modal-input" required />
+
+        <div class="modal-footer">
+          <button type="submit" class="btn">Thêm</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal xác nhận xóa -->
+  <div id="deleteModal" class="modal">
+    <div class="modal-content fade">
+      <span class="close">&times;</span>
+      <h2>Xác nhận xóa</h2>
+      <p>Bạn có chắc muốn xóa toàn bộ công việc không?</p>
       <div class="modal-footer">
-        <button class="btn action">OK</button>
+        <button id="confirmDelete" class="btn delete">Xóa</button>
+        <button id="cancelDelete" class="btn">Hủy</button>
       </div>
     </div>
   </div>
-  <script src="./js/index.js"></script>
+
+  <button id="logout">Đăng xuất</button>
+
+  <script src="./js/work.js"></script>
+  <script src="./js/page_change.js"></script>
 </body>
 </html>
