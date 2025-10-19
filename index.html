@@ -1,15 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="./Css/index.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work Management</title>
+  <link rel="stylesheet" href="./Css/index.css">
 </head>
+
 <body>
-    <header>
-        <h1>Work Management</h1>
-    </header>
-    <button id="logout">Đăng xuất</button>
+  <header>
+    <div class="logo">Work Management</div>
+    <div class="navbar">
+      <button class="tab active" id="home">Home</button>
+      <button class="tab" id="work">Work</button>
+      <button class="tab" id="chart">Chart</button>
+    </div>
+  </header>
+  <h1>Work Management</h1>
+  <div class="container">
+
+  </div>
+  <!-- Nút logout -->
+  <button id="logout">Đăng xuất</button>
+
+  <script src="./js/index.js"></script>
+  <script src="./js/page_change.js"></script>
+  <footer><p>&copy; 2025 Work Management</p></footer>
 </body>
 </html>
