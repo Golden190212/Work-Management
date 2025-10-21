@@ -1,23 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chart</title>
-    <link rel="stylesheet" href="./Css/chart.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thống kê công việc</title>
+  <link rel="stylesheet" href="./Css/chart.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
-    <header>
-        <div class="logo">Work Management</div>
-        <div class="navbar">
-            <button class="tab" id="home">Home</button>
-            <button class="tab" id="work">Work</button>
-            <button class="tab active" id="chart">Chart</button>
+  <header>
+    <div class="logo">Work Management</div>
+    <div class="navbar">
+      <button class="tab" id="home">Home</button>
+      <button class="tab" id="work">Work</button>
+      <button class="tab active" id="chart">Chart</button>
+    </div>
+  </header>
+
+  <main>
+    <h1>Thống kê công việc</h1>
+
+    <!-- BIỂU ĐỒ TRÒN -->
+    <section class="chart-section">
+      <h2>Hiệu suất tổng quát</h2>
+      <div class="chart-container">
+        <canvas id="pieChart"></canvas>
+      </div>
+    </section>
+
+    <!-- BIỂU ĐỒ CỘT -->
+    <section class="chart-section">
+      <div class="chart-header">
+        <h2>Hiệu suất công việc theo thời gian</h2>
+        <div class="filter-container">
+          <label for="filterType">Thống kê theo:</label>
+          <select id="filterType">
+            <option value="day">Ngày</option>
+            <option value="month">Tháng</option>
+            <option value="year">Năm</option>
+          </select>
         </div>
-    </header>
-    <script src="./js/chart.js"></script>
-    <script src="./js/page_change.js"></script>
-  <footer><p>&copy; 2025 Work Management</p></footer>
+      </div>
+      <div class="chart-container">
+        <canvas id="barChart"></canvas>
+      </div>
+    </section>
+
+
+    <!-- KHU VỰC THỐNG KÊ -->
+    <div class="summary">
+      <p><strong>Tổng số công việc:</strong> <span id="totalTasks">0</span></p>
+      <p><strong>Đã hoàn thành:</strong> <span id="doneTasks">0</span></p>
+      <p><strong>Chưa hoàn thành:</strong> <span id="pendingTasks">0</span></p>
+      <p><strong>Tỷ lệ hoàn thành:</strong> <span id="percent">0%</span></p>
+    </div>
+  </main>
+
+  <script src="./js/page_change.js"></script>
+  <script src="./js/chart.js"></script>
+
+  <footer>
+    <p>&copy; 2025 Work Management</p>
+  </footer>
 </body>
 </html>
