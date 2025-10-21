@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quản lý công việc</title>
   <link rel="stylesheet" href="./Css/work.css" />
 </head>
+
 <body>
   <header>
     <div class="navbar">
@@ -19,19 +21,25 @@
   </header>
 
   <main>
-    <h1>Quản lý công việc</h1>
+    <h1>Work Management</h1>
 
     <div class="task-actions">
       <button id="addTaskBtn" class="btn">➕ Thêm công việc</button>
       <button id="deleteAllBtn" class="btn delete">🗑️ Xóa tất cả</button>
     </div>
-
-    <div class="container">
-      <h3>Danh sách công việc</h3>
-      <div id="taskList" class="task-list">
-        <p>Chưa có công việc nào.</p>
+      <div class="unfinish_work">
+        <h2>Danh sách công việc chưa hoàn thành</h2>
+        <div id="unfinish_task" class="unfinish-task">
+          <p>Chưa có công việc nào.</p>
+        </div>
       </div>
-    </div>
+
+      <div class="finish_work">
+        <h2>Danh sách công việc đã hoàn thành</h2>
+        <div id="finish_task" class="finish-task">
+          <p>Chưa có công việc nào</p>
+        </div>
+      </div>
   </main>
 
   <!-- Modal thêm công việc -->
@@ -65,10 +73,11 @@
       </div>
     </div>
   </div>
-
   <button id="logout">Đăng xuất</button>
+
 
   <script src="./js/work.js"></script>
   <script src="./js/page_change.js"></script>
 </body>
+
 </html>
