@@ -95,17 +95,47 @@ h1 {
   text-shadow: 0 0 15px rgba(0, 234, 255, 0.4);
 }
 
-/* CONTAINER */
-.container {
-  flex: 1;
-  width: 90%;
-  max-width: 1000px;
-  margin: 20px auto;
+.unfinish_work, .finish_work {
   background: rgba(255, 255, 255, 0.03);
-  border-radius: 15px;
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
-  padding: 30px 40px;
+  border-radius: 12px;
+  padding: 20px 25px;
+  margin-top: 25px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
+}
+
+.unfinish_work h2, .finish_work h2 {
+  color: #00eaff;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px rgba(0, 234, 255, 0.4);
+}
+
+.task-item {
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.unfinish_work {
+  border: 1px solid rgba(0, 234, 255, 0.15);
+}
+
+.finish_work {
+  border: 1px solid rgba(0, 255, 128, 0.15);
+}
+
+.done {
+  color: #00ff99;
+  font-weight: 600;
+}
+
+.undone {
+  color: #ff5252;
+  font-weight: 600;
 }
 
 /* NÚT LOGOUT */
@@ -169,4 +199,69 @@ footer {
   h1 {
     font-size: 1.5rem;
   }
+}
+
+.toast {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #00eaff;
+  color: #111;
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s ease;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+}
+
+.toast.show {
+  opacity: 1;
+  bottom: 60px;
+  pointer-events: auto;
+}
+
+
+/* === TRẠNG THÁI CÔNG VIỆC === */
+.done {
+  color: #00ff99;
+  font-weight: 600;
+  text-shadow: 0 0 8px rgba(0, 255, 128, 0.6);
+}
+
+.undone {
+  color: #ff5252;
+  font-weight: 600;
+  text-shadow: 0 0 8px rgba(255, 82, 82, 0.5);
+}
+
+.near {
+  color: #ffcc00;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
+  animation: blink 1s infinite;
+}
+
+.expired {
+  color: #ff3b3b;
+  font-weight: 700;
+  text-shadow: 0 0 12px rgba(255, 0, 0, 0.7);
+}
+
+/* Hiệu ứng nhấp nháy nhẹ cho trạng thái gần hết hạn */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+
+.user-btn {
+  color: #00eaff;
+  text-shadow: 0 0 10px rgba(0, 234, 255, 0.6);
+  font-weight: 600;
+  cursor: default;
 }

@@ -1,13 +1,36 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+import {
+  getAuth, onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import {
+  collection, query, where, getDocs
+} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { app, db } from "./firebase_config.js";
 
-  const totalEl = document.getElementById("totalTasks");
-  const doneEl = document.getElementById("doneTasks");
-  const pendingEl = document.getElementById("pendingTasks");
-  const percentEl = document.getElementById("percent");
-  const filterSelect = document.getElementById("filterType");
+const auth = getAuth(app);
 
-  // === CẬP NHẬT THỐNG KÊ ===
+const totalEl = document.getElementById("totalTasks");
+const doneEl = document.getElementById("doneTasks");
+const pendingEl = document.getElementById("pendingTasks");
+const percentEl = document.getElementById("percent");
+const filterSelect = document.getElementById("filterType");
+
+const pieCtx = document.getElementById("pieChart").getContext("2d");
+const barCtx = document.getElementById("barChart").getContext("2d");
+let barChart;
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) return (window.location.href = "login.html");
+  await loadUserTasks(user.uid);
+});
+
+async function loadUserTasks(uid) {
+  const q = query(collection(db, "tasks"), where("uid", "==", uid));
+  const snap = await getDocs(q);
+  const tasks = snap.docs.map(d => d.data());
+  updateCharts(tasks);
+}
+
+function updateCharts(tasks) {
   const doneCount = tasks.filter(t => t.done).length;
   const totalCount = tasks.length;
   const pendingCount = totalCount - doneCount;
@@ -18,8 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
   pendingEl.textContent = pendingCount;
   percentEl.textContent = percent + "%";
 
-  // === BIỂU ĐỒ TRÒN ===
-  const pieCtx = document.getElementById("pieChart").getContext("2d");
   new Chart(pieCtx, {
     type: "doughnut",
     data: {
@@ -44,10 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
-  // === BIỂU ĐỒ CỘT (lọc theo thời gian) ===
-  const barCtx = document.getElementById("barChart").getContext("2d");
-  let barChart;
-
   function updateBarChart() {
     const type = filterSelect.value;
     const groups = {};
@@ -57,9 +74,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const d = new Date(t.deadline);
       let key =
         type === "day" ? d.toISOString().split("T")[0] :
-        type === "month" ? `${d.getFullYear()}-${d.getMonth() + 1}` :
+        type === "month" ? `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}` :
         `${d.getFullYear()}`;
-
       if (!groups[key]) groups[key] = { done: 0, total: 0 };
       groups[key].total++;
       if (t.done) groups[key].done++;
@@ -84,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
         scales: {
           x: { ticks: { color: "#fff" }, grid: { color: "rgba(255,255,255,0.1)" } },
           y: {
-            ticks: { color: "#fff", stepSize: 1 }, // ✅ số nguyên, không thập phân
+            ticks: { color: "#fff", stepSize: 1 },
             grid: { color: "rgba(255,255,255,0.1)" },
             beginAtZero: true,
           },
@@ -104,4 +120,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   filterSelect.onchange = updateBarChart;
   updateBarChart();
-});
+}

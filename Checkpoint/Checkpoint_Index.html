@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Profile Manager</title>
+  <link rel="stylesheet" href="./Checkpoint_Index.css">
+</head>
+<body>
+  <header><h1>Profile Manager</h1></header>
+
+  <main class="container">
+    <section class="form-card">
+      <h2>Tạo / Cập nhật profile</h2>
+      <form id="profileForm">
+        <label for="name">Tên</label>
+        <input id="name" type="text" placeholder="Tên của bạn" required />
+
+        <label for="bio">Giới thiệu ngắn</label>
+        <textarea id="bio" rows="4" placeholder="Viết vài dòng về bạn..." required></textarea>
+
+        <label for="images">Ảnh (avatar, dự án...) — chọn nhiều được</label>
+        <input id="images" type="file" accept="image/*" multiple />
+
+        <div id="preview" class="preview"></div>
+
+        <div class="progress" id="progressBar" style="display:none;">
+          Upload: <span id="progressPercent">0%</span>
+        </div>
+
+        <button id="saveBtn">Lưu Profile</button>
+      </form>
+    </section>
+
+    <section class="list-card">
+      <h2>Profiles đã lưu</h2>
+      <div id="profilesList">Chưa có profile nào.</div>
+    </section>
+    <a href="./Checkpoint_Profile.html">Profile</a>
+  </main>
+
+  <footer>
+    <small>&copy; 2025 Work Management - Demo</small>
+  </footer>
+
+  <!-- script must be module so import works -->
+  <script type="module" src="./Checkpoint_index.js"></script>
+</body>
+</html>

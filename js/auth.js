@@ -1,116 +1,85 @@
-// Import Firebase Auth từ file index.js
-import { auth } from "./FirebaseConfig.js";
-
-import { 
-  updateProfile,
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
-  signOut,
-  GoogleAuthProvider, 
-  signInWithPopup
-} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-
-// Đăng nhập bằng google
-const provider = new GoogleAuthProvider();
-
-// Hàm đăng nhập với Google
-function loginWithGoogle() {
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      const user = result.user;
-
-      alert("Đăng nhập Google thành công: " + name);
-
-      // Chuyển về trang chính nếu cần
-      window.location.href = "index.html";
-    })
-    .catch((error) => {
-      console.error("Lỗi đăng nhập Google:", error);
-      alert("Lỗi: " + error.message);
-    });
-}
+// Js/Auth.js
+import { auth, db } from "./firebase_config.js";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword }  
+  from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { setDoc, doc, getDoc }  
+  from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+export { auth };
 
 
-// Gắn hàm vào window để HTML gọi được
-window.loginWithGoogle = loginWithGoogle;
-
-
-// Xác thực
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
-
-function isValidPassword(password) {
-  return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/.test(password);
+function isStrongPassword(pw) {
+  return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(pw);
 }
 
-// Đăng kí
-const signupForm = document.getElementById("SignupForm");
-if (signupForm) {
-  signupForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const username = document.getElementById("signupUsername").value;
-    const email = document.getElementById("signupEmail").value;
-    const password = document.getElementById("signupPassword").value;
+// ====== DOM Events ======
+document.addEventListener("DOMContentLoaded", () => {
+  // --- ĐĂNG KÝ ---
+  const signupForm = document.getElementById("signupForm");
+  if (signupForm) {
+    signupForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const username = document.getElementById("signupUsername").value.trim();
+      const email = document.getElementById("signupEmail").value.trim();
+      const password = document.getElementById("signupPassword").value.trim();
 
-    if (!isValidEmail(email)) {
-      alert("Email không hợp lệ! Phải chứa '@'.");
-      return;
-    }
-    if (!isValidPassword(password)) {
-      alert("Mật khẩu phải >= 6 ký tự, có ít nhất 1 chữ hoa, 1 chữ thường và 1 số.");
-      return;
-    }
-// D:\ONL-JSI37\SPCK
-    try {
-      const userCredential= await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(userCredential.user,{
-        displayName: user
-      })
-      alert(email + " đã đăng kí thành công!");
-      window.location.href = "Home.html";
-      signupForm.reset();
-    } catch (error) {
-      alert("Lỗi: " + error.message);
-    }
-  });
-}
+      if (!isValidEmail(email)) return alert("Email không hợp lệ!");
+      if (!isStrongPassword(password)) return alert("Mật khẩu phải ít nhất 8 ký tự, có chữ hoa, chữ thường và số!");
 
-// Đăng nhập
-const loginForm = document.getElementById("LoginForm");
-if (loginForm) {
-  loginForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const email = document.getElementById("loginEmail").value;
-    const password = document.getElementById("loginPassword").value;
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
 
-    if (!isValidEmail(email)) {
-      alert("Email không hợp lệ! Phải chứa '@'.");
-      return;
-    }
-    if (!isValidPassword(password)) {
-      alert("Mật khẩu phải >= 6 ký tự, có ít nhất 1 chữ hoa, 1 chữ thường và 1 số.");
-      return;
-    }
+        // Lưu username vào Firestore
+        await setDoc(doc(db, "users", user.uid), {
+          email: email,
+          username: username,
+          createdAt: new Date()
+        });
 
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      alert(email + " đã đăng nhập thành công!");
-      window.location.href = "Home.html";
-      loginForm.reset();
-    } catch (error) {
-      alert("Lỗi: " + error.message);
-    }
-  });
-}
+        alert("Đăng ký thành công!");
+        window.location.href = "index.html";
+      } catch (error) {
+        if (error.code === "auth/email-already-in-use") {
+          alert("email-or-email-already-in-use.");
+        } else {
+          alert("Lỗi đăng ký: " + error.message);
+        }
+      }
+    });
+  }
 
-const LogOutBtn = document.getElementById("logout")
-    if(LogOutBtn) {
-        LogOutBtn.addEventListener("click", async() => {
-            await signOut(auth);
-            alert("Bạn đã đăng xuất")
-        } )
-}
-    
+  // --- ĐĂNG NHẬP ---
+  const loginForm = document.getElementById("loginForm");
+  if (loginForm) {
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const username = document.getElementById("loginUsername").value.trim();
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
 
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Lấy dữ liệu user trong Firestore để so username
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+          const data = userDoc.data();
+          if (data.username !== username) {
+            alert("Sai Username!");
+            return;
+          }
+        }
+
+        alert("Đăng nhập thành công!");
+        window.location.href = "index.html";
+      } catch (error) {
+        alert("Lỗi đăng nhập: " + error.message);
+      }
+    });
+  }
+});
 

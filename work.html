@@ -10,7 +10,7 @@
 
 <body>
   <header>
-    <div class="navbar">
+    <div class="navbar" id="navbar">
       <div class="logo">Work Management</div>
       <div class="nav-buttons">
         <button id="home" class="tab">Home</button>
@@ -20,6 +20,7 @@
     </div>
   </header>
 
+
   <main>
     <h1>Work Management</h1>
 
@@ -27,19 +28,20 @@
       <button id="addTaskBtn" class="btn">➕ Thêm công việc</button>
       <button id="deleteAllBtn" class="btn delete">🗑️ Xóa tất cả</button>
     </div>
-      <div class="unfinish_work">
-        <h2>Danh sách công việc chưa hoàn thành</h2>
-        <div id="unfinish_task" class="unfinish-task">
-          <p>Chưa có công việc nào.</p>
-        </div>
-      </div>
 
-      <div class="finish_work">
-        <h2>Danh sách công việc đã hoàn thành</h2>
-        <div id="finish_task" class="finish-task">
-          <p>Chưa có công việc nào</p>
-        </div>
+    <div class="unfinish_work">
+      <h2>Danh sách công việc chưa hoàn thành</h2>
+      <div id="unfinish_task" class="unfinish-task">
+        <p>Chưa có công việc nào.</p>
       </div>
+    </div>
+
+    <div class="finish_work">
+      <h2>Danh sách công việc đã hoàn thành</h2>
+      <div id="finish_task" class="finish-task">
+        <p>Chưa có công việc nào</p>
+      </div>
+    </div>
   </main>
 
   <!-- Modal thêm công việc -->
@@ -50,10 +52,8 @@
       <form id="taskForm">
         <label for="taskName">Tên công việc:</label>
         <input type="text" id="taskName" class="modal-input" required />
-
         <label for="taskDeadline">Thời hạn hoàn thành:</label>
         <input type="datetime-local" id="taskDeadline" class="modal-input" required />
-
         <div class="modal-footer">
           <button type="submit" class="btn">Thêm</button>
         </div>
@@ -73,11 +73,15 @@
       </div>
     </div>
   </div>
+
+  <div id="toast" class="toast"></div>
   <button id="logout">Đăng xuất</button>
 
-
-  <script src="./js/work.js"></script>
+  <script src="./js/notification.js"></script>
+  <script type="module" src="./js/work.js"></script>
   <script src="./js/page_change.js"></script>
+  <script type="module" src="./js/user_navbar.js"></script>
+
 </body>
 
 </html>
