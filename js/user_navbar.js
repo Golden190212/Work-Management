@@ -33,7 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const userBtn = document.createElement("button");
       userBtn.className = "tab user-btn";
       userBtn.id = "userBtn";
-      userBtn.textContent = username;
+      userBtn.innerHTML = `🔒 ${username}`;
+      console.log(`🔒 Đã đăng nhập với username: ${username}`);
       navbar.appendChild(userBtn);
 
       if (logout) {

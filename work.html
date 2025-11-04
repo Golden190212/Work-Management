@@ -10,15 +10,16 @@
 
 <body>
   <header>
+    <div class="logo">Work Management</div>
     <div class="navbar" id="navbar">
-      <div class="logo">Work Management</div>
-      <div class="nav-buttons">
-        <button id="home" class="tab">Home</button>
-        <button id="work" class="tab active">Work</button>
-        <button id="chart" class="tab">Chart</button>
-      </div>
+      <button class="tab" id="home">Home</button>
+      <button class="tab" id="work">Work</button>
+      <button class="tab" id="chart">Chart</button>
+      <!-- user_navbar.js sẽ tự thêm username hoặc Sign up / Log in -->
     </div>
   </header>
+
+
 
 
   <main>
@@ -75,7 +76,6 @@
   </div>
 
   <div id="toast" class="toast"></div>
-  <button id="logout">Đăng xuất</button>
 
   <script src="./js/notification.js"></script>
   <script type="module" src="./js/work.js"></script>

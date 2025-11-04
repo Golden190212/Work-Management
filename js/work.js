@@ -1,5 +1,5 @@
 import {
-  getAuth, onAuthStateChanged, signOut
+  getAuth, onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 import {
   getFirestore, collection, query, where,
@@ -22,7 +22,6 @@ const unfinishTask = document.getElementById("unfinish_task");
 const finishTask = document.getElementById("finish_task");
 const confirmDelete = document.getElementById("confirmDelete");
 const cancelDelete = document.getElementById("cancelDelete");
-const logoutBtn = document.getElementById("logout");
 
 let currentUID = null;
 
@@ -140,12 +139,8 @@ confirmDelete.onclick = async () => {
   renderTasks();
 };
 
-// Nút modal và logout
+// Nút modal
 addTaskBtn.onclick = () => (addTaskModal.style.display = "flex");
 deleteAllBtn.onclick = () => (deleteModal.style.display = "flex");
 cancelDelete.onclick = () => (deleteModal.style.display = "none");
 closeBtns.forEach(btn => btn.onclick = () => (btn.closest(".modal").style.display = "none"));
-logoutBtn.onclick = async () => {
-  await signOut(auth);
-  window.location.href = "login.html";
-};

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chatbot - Lunarian</title>
+  <link rel="stylesheet" href="./Css/chatbot.css" />
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <header>
+    <div class="logo">Work Management</div>
+    <div class="navbar" id="navbar">
+      <button class="tab" id="home">Home</button>
+      <button class="tab" id="work">Work</button>
+      <button class="tab" id="chart">Chart</button>
+      <!-- user_navbar.js sẽ tự thêm username hoặc Sign up / Log in -->
+    </div>
+  </header>
+
+  <!-- CHATBOT CONTAINER -->
+  <main>
+    <div class="chat-container">
+      <div id="chat-box" class="chat-box"></div>
+      <div class="input-area">
+        <input type="text" id="user-input" placeholder="Nhập tin nhắn..." />
+        <button id="send-btn">Gửi</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Lunarian AI — All rights reserved</p>
+  </footer>
+
+  <script src="./js/chat-bot.js"></script>
+  <script type ="module" src="./js/user_navbar.js"></script> 
+</body>
+
+</html>
