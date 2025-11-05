@@ -124,35 +124,6 @@ header {
   border-color: rgba(0, 234, 255, 0.3);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    height: auto;
-    padding: 10px 20px;
-    gap: 10px;
-  }
-
-  .nav-left {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .nav-buttons {
-    gap: 15px;
-  }
-
-  .logo {
-    font-size: 18px;
-  }
-
-  .tab {
-    font-size: 15px;
-    padding: 8px 10px;
-  }
-}
-
-
 /* MAIN TITLE */
 h1 {
   margin: 40px 0 20px;
@@ -197,14 +168,34 @@ h1 {
 .done {
   color: #00ff99;
   font-weight: 600;
+  text-shadow: 0 0 8px rgba(0, 255, 128, 0.6);
 }
 
 .undone {
   color: #ff5252;
   font-weight: 600;
+  text-shadow: 0 0 8px rgba(255, 82, 82, 0.5);
 }
 
-/* NÚT LOGOUT */
+.near {
+  color: #ffcc00;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
+  animation: blink 1s infinite;
+}
+
+.expired {
+  color: #ff3b3b;
+  font-weight: 700;
+  text-shadow: 0 0 12px rgba(255, 0, 0, 0.7);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* NÚT LOGOUT — nằm bên phải */
 #logout {
   position: fixed;
   bottom: 25px;
@@ -219,6 +210,7 @@ h1 {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 6px 15px rgba(255, 75, 43, 0.5);
+  z-index: 9999;
 }
 
 #logout:hover {
@@ -235,38 +227,7 @@ footer {
   color: #bbb;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    height: auto;
-    padding: 10px 20px;
-    gap: 8px;
-  }
-
-  .navbar {
-    gap: 15px;
-  }
-
-  .logo {
-    font-size: 18px;
-  }
-
-  .tab {
-    font-size: 15px;
-    padding: 8px 10px;
-  }
-
-  #logout {
-    padding: 10px 18px;
-    font-size: 14px;
-  }
-
-  h1 {
-    font-size: 1.5rem;
-  }
-}
-
+/* TOAST */
 .toast {
   position: fixed;
   bottom: 40px;
@@ -291,44 +252,36 @@ footer {
   pointer-events: auto;
 }
 
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  header, .navbar, .nav-left {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 20px;
+    height: auto;
+  }
 
-/* === TRẠNG THÁI CÔNG VIỆC === */
-.done {
-  color: #00ff99;
-  font-weight: 600;
-  text-shadow: 0 0 8px rgba(0, 255, 128, 0.6);
+  .nav-buttons {
+    gap: 15px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .tab, #signupBtn, #loginBtn {
+    font-size: 15px;
+    padding: 8px 10px;
+  }
+
+  #logout {
+    padding: 10px 18px;
+    font-size: 14px;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
 }
-
-.undone {
-  color: #ff5252;
-  font-weight: 600;
-  text-shadow: 0 0 8px rgba(255, 82, 82, 0.5);
-}
-
-.near {
-  color: #ffcc00;
-  font-weight: 600;
-  text-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
-  animation: blink 1s infinite;
-}
-
-.expired {
-  color: #ff3b3b;
-  font-weight: 700;
-  text-shadow: 0 0 12px rgba(255, 0, 0, 0.7);
-}
-
-/* Hiệu ứng nhấp nháy nhẹ cho trạng thái gần hết hạn */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-
-.user-btn {
-  color: #00eaff;
-  text-shadow: 0 0 10px rgba(0, 234, 255, 0.6);
-  font-weight: 600;
-  cursor: default;
-}
-
